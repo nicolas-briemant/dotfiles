@@ -1,0 +1,48 @@
+#!/bin/bash
+
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[0;33m\]"
+GREEN="\[\033[0;32m\]"
+BLUE="\[\033[0;34m\]"
+LIGHT_RED="\[\033[1;31m\]"
+LIGHT_GREEN="\[\033[1;32m\]"
+WHITE="\[\033[1;37m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+COLOR_NONE="\[\e[0m\]"
+
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+function parse_git_status {
+  noupdated=`git status --porcelain 2> /dev/null | grep -E "^ (M|D)" | wc -l`
+  nocommitted=`git status --porcelain 2> /dev/null | grep -E "^(M|A|D|R|C)" | wc -l`
+
+  if [[ $noupdated -gt 0 ]]; then echo -n "*"; fi
+  if [[ $nocommitted -gt 0 ]]; then echo -n "+"; fi
+}
+
+function prompt_func() {
+  previous_return_value=$?;
+
+  #The lowercase w is the full current working directory
+  #Capital W is just the trailing part of the current working directory
+
+  git_branch=$(parse_git_branch)
+  git_prompt=""
+  if [ $git_branch ]
+  then
+    git_prompt="${COLOR_NONE}|${YELLOW}${git_branch}$(parse_git_status)"
+  fi
+
+  prompt="${COLOR_NONE}[${TITLEBAR}$RED\$(date +%H:%M)${COLOR_NONE}|$GREEN\u@\h${COLOR_NONE}|$BLUE\w${git_prompt}${COLOR_NONE}]"
+
+  if test $previous_return_value -eq 0
+  then
+    PS1="${prompt}\n#${COLOR_NONE} "
+  else
+    PS1="${prompt}\n#${COLOR_NONE} "
+  fi
+}
+
+PROMPT_COMMAND=prompt_func
