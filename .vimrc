@@ -40,11 +40,11 @@ Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 
 " lucius
-" syntax on
-" set background=dark
-" let g:solarized_termcolors=256
-" let g:solarized_termtrans=1
-" colorscheme lucius
+syntax on
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme lucius
 
 exec 'set directory='.root.'/swap,.'
 
