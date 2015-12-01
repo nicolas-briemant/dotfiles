@@ -29,6 +29,7 @@ Bundle 'vim-scripts/tComment'
 Bundle 'jonathanfilip/vim-lucius'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
+Bundle 'mxw/vim-jsx'
 Bundle 'Raimondi/delimitMate'
 Bundle 'elzr/vim-json'
 Bundle 'plasticboy/vim-markdown'
@@ -38,11 +39,12 @@ Bundle 'hail2u/vim-css3-syntax'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 
-syntax on
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-colorscheme lucius
+" lucius
+" syntax on
+" set background=dark
+" let g:solarized_termcolors=256
+" let g:solarized_termtrans=1
+" colorscheme lucius
 
 exec 'set directory='.root.'/swap,.'
 
